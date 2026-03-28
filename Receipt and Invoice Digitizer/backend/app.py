@@ -30,7 +30,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
 bcrypt = Bcrypt(app)
 
 # Configure Gemini API (expects GEMINI_API_KEY env var)
-GEMINI_API_KEY = "AIzaSyDodypOffIldMhSlEPpiWZiitf4DWK_jJ4"
+GEMINI_API_KEY = ""
 # Chat-only API key (use provided key by default; can be overridden with CHAT_API_KEY env var)
 CHAT_API_KEY = ""
 # Receipt extraction model - use gemini-2.5-flash (MUST be a valid Gemini model, not gpt-4o!)
