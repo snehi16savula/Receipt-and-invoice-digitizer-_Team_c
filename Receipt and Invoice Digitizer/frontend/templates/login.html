@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receipt & Invoice Digitizer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #B5C4F7; /* light industrial gray */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 1000px;
+  height: 580px;
+  display: flex;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+.left {
+  flex: 1;
+  background: linear-gradient(160deg, #334155, #1e293b);
+  color: white;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.left img {
+  width: 260px;
+  margin-bottom: 30px;
+}
+
+.left h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.left p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* RIGHT PANEL */
+.right {
+  flex: 1;
+  padding: 60px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right h2 {
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Buttons */
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}
+
+.divider {
+  text-align: center;
+  margin: 18px 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.google-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.google-btn:hover {
+  background: #f9fafb;
+}
+
+.google-btn img {
+  width: 18px;
+  margin-right: 10px;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.footer a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.admin-login {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;               /* soft dark gray text */
+  background-color: #ffffff;    /* white background */
+  border: 1px solid #d1d5db;     /* light gray border */
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.admin-login:hover {
+  background-color: #f3f4f6;     /* subtle hover */
+  border-color: #9ca3af;
+}
+ 
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="left">
+    <!-- You can download any invoice illustration and put in static folder -->
+    <img src="/static/reciept.jpeg" alt="Document Processing">
+
+    <h1>Receipt & Invoice Digitizer</h1>
+    <p>
+      Secure AI-powered platform for extracting,
+      processing, and managing financial documents
+      with enterprise-grade accuracy.
+    </p>
+  </div>
+
+  <div class="right">
+    <h2>Sign in to your account</h2>
+
+    <input id="email" placeholder="Work Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button class="primary-btn" onclick="login()">Sign In</button>
+
+    <div class="divider">OR</div>
+
+    <button class="google-btn" onclick="window.location='/login/google'">
+      <img src="https://www.svgrepo.com/show/355037/google.svg">
+      Continue with Google
+    </button>
+
+    <div class="footer">
+      New user? <a href="/register_page">Create account</a><br/>
+      <a href="/admin_login" class="admin-login">Admin Login</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+async function login(){
+ const res = await fetch("/login",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body: JSON.stringify({
+     email: email.value,
+     password: password.value
+   })
+ })
+
+ const data = await res.json()
+
+ if(data.msg){
+   if(data.msg === "admin"){
+     window.location = "/admin_dashboard"
+   } else {
+     window.location = "/dashboard"
+   }
+ }
+ else alert("Invalid login")
+}
+</script>
+
+</body>
+</html>

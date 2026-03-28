@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Login - Receipt Digitizer</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+body::before {
+  top: -100px;
+  left: -100px;
+  background: rgba(255, 107, 107, 0.5);
+  animation-delay: 0s;
+}
+body::after {
+  bottom: -100px;
+  right: -100px;
+  background: rgba(74, 144, 226, 0.5);
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(30px); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideDown 0.6s ease;
+}
+
+.left-panel {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.lock-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.left-panel h1 {
+  font-size: 32px;
+  margin: 0 0 15px 0;
+  font-weight: 700;
+}
+
+.left-panel p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel h2 {
+  font-size: 28px;
+  margin: 0 0 35px 0;
+  color: #333;
+  font-weight: 700;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.field input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.field label {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background: white;
+  padding: 0 4px;
+}
+
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn:active {
+  transform: translateY(-1px);
+}
+
+.info-box {
+  background: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin: 20px 0 0 0;
+  font-size: 13px;
+  color: #856404;
+}
+
+.footer-links {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.footer-links p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    flex-direction: column;
+  }
+  .left-panel {
+    padding: 40px 30px;
+  }
+  .right-panel {
+    padding: 40px 30px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="left-panel">
+    <div class="lock-icon">🔐</div>
+    <h1>Admin Portal</h1>
+    <p>Secure access to manage your receipt digitization system and user accounts.</p>
+  </div>
+
+  <div class="right-panel">
+    <h2>Login</h2>
+
+    <div class="field">
+      <input id="email" placeholder=" " />
+      <label>Email Address</label>
+    </div>
+
+    <div class="field">
+      <input id="password" type="password" placeholder=" " />
+      <label>Password</label>
+    </div>
+
+    <button class="login-btn" onclick="login()">Login as Admin</button>
+
+    <div class="info-box">
+      ℹ️ Only authorized administrators can access this portal.
+    </div>
+
+    <div class="footer-links">
+      <p>Not an admin? <a href="/">Go to user login</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+async function login(){
+  const res = await fetch("/admin_login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.msg === "admin"){
+    window.location = "/admin_dashboard";
+  } else {
+    alert("Invalid admin credentials 😬");
+  }
+}
+</script>
+
+</body>
+</html>
